@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*.log
+.pytest_cache/
+.venv/
+venv/
+.env
+config/config.yaml
+config/secrets.yaml
+*.bin

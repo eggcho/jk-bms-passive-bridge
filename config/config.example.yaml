@@ -1,0 +1,24 @@
+serial:
+  port: /dev/ttyUSB0
+  baud_rate: 115200
+
+mqtt:
+  broker: 192.168.1.10
+  port: 1883
+  username: your_mqtt_username
+  password: your_mqtt_password
+  discovery_prefix: homeassistant
+  state_root: jk_bms_passive_bridge
+
+defaults:
+  cells: 16
+
+packs:
+  - address: 0x00
+    name: JK BMS Pack 1
+    prefix: jk_bms_pack_1
+    cells: 16
+  - address: 0x02
+    name: JK BMS Pack 2
+    prefix: jk_bms_pack_2
+    cells: 16

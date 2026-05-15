@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jk-bms-passive-bridge"
+version = "0.1.0"
+description = "Passive multi-pack JK BMS RS485 bridge for Home Assistant"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Open Source Contributors" }
+]
+dependencies = [
+  "loguru>=0.7.0",
+  "paho-mqtt>=2.0.0",
+  "pyserial>=3.5",
+  "PyYAML>=6.0.0",
+]
+keywords = ["jk-bms", "rs485", "home-assistant", "mqtt", "battery", "deye"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: End Users/Desktop",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Home Automation",
+  "Topic :: System :: Monitoring",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[project.scripts]
+jk-bms-ha-poller = "jk_bms_passive_bridge.poller:main"
+jk-bms-live-monitor = "jk_bms_passive_bridge.live_monitor:main"
+jk-bms-passive-capture = "jk_bms_passive_bridge.capture_tool:main"
+jk-bms-frame-analyzer = "jk_bms_passive_bridge.frame_analyzer:main"
+jk-bms-mqtt-cleanup = "jk_bms_passive_bridge.mqtt_cleanup:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

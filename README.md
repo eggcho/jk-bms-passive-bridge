@@ -214,6 +214,16 @@ For a ready-to-adapt service file, see:
 
 - [docs/systemd.md](docs/systemd.md)
 
+## Screenshots
+
+Original `jk-bms-card` layout:
+
+![Original jk-bms-card layout](docs/images/jk-bms-card-example_original.png)
+
+Core Reactor layout:
+
+![Core Reactor jk-bms-card layout](docs/images/jk-bms-card-example_core_reactor.png)
+
 ## Limitations
 
 - Not all JK information appears passively on the bus

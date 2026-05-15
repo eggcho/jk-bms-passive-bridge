@@ -73,12 +73,19 @@ class HAPoller:
     def publish_discovery(self, pack: PackState):
         if pack.discovery_sent:
             return
+        state = build_state(pack.type01, pack.type02) if (pack.type01 or pack.type02) else {}
         device = {
             "identifiers": [pack.config.prefix],
             "name": pack.config.name,
             "manufacturer": "JK BMS",
             "model": "JK-PB2A16S20P",
+            "serial_number": pack.config.prefix,
+            "configuration_url": "https://github.com/eggcho/jk-bms-passive-bridge",
         }
+        if state.get("hardware_version") and state["hardware_version"] != "unknown":
+            device["hw_version"] = state["hardware_version"]
+        if state.get("software_version") and state["software_version"] != "unknown":
+            device["sw_version"] = state["software_version"]
         state_topic = self._state_topic(pack)
         availability_topic = self._availability_topic()
         sensor_defs = [
@@ -87,7 +94,7 @@ class HAPoller:
             ("power", "Power", "W", "power", "measurement", 1),
             ("balance_trigger_voltage", "Balance Trigger Voltage", "V", "voltage", None, 3),
             ("balance_starting_voltage", "Balance Starting Voltage", "V", "voltage", None, 3),
-            ("total_runtime_formatted", "Total Runtime", None, None, None, 0),
+            ("total_runtime_formatted", "Total Runtime", None, None, None, None),
             ("charging_power", "Charging Power", "W", "power", "measurement", 1),
             ("discharging_power", "Discharging Power", "W", "power", "measurement", 1),
             ("total_voltage", "Total Voltage", "V", "voltage", "measurement", 3),
@@ -103,16 +110,16 @@ class HAPoller:
             ("max_voltage_cell", "Max Voltage Cell", None, None, None, 0),
             ("min_cell_voltage", "Min Cell Voltage", "V", "voltage", "measurement", 3),
             ("max_cell_voltage", "Max Cell Voltage", "V", "voltage", "measurement", 3),
-            ("errors", "Errors", None, None, None, 0),
-            ("software_version", "Software Version", None, None, None, 0),
-            ("hardware_version", "Hardware Version", None, None, None, 0),
+            ("errors", "Errors", None, None, None, None),
+            ("software_version", "Software Version", None, None, None, None),
+            ("hardware_version", "Hardware Version", None, None, None, None),
             ("temperature_sensor_1", "Temperature Sensor 1", "°C", "temperature", "measurement", 1),
             ("temperature_sensor_2", "Temperature Sensor 2", "°C", "temperature", "measurement", 1),
             ("temperature_sensor_3", "Temperature Sensor 3", "°C", "temperature", "measurement", 1),
             ("temperature_sensor_4", "Temperature Sensor 4", "°C", "temperature", "measurement", 1),
             ("state_of_health", "State Of Health", "%", None, "measurement", 0),
-            ("charge_mos_state", "Charge MOS State", None, None, None, 0),
-            ("discharge_mos_state", "Discharge MOS State", None, None, None, 0),
+            ("charge_mos_state", "Charge MOS State", None, None, None, None),
+            ("discharge_mos_state", "Discharge MOS State", None, None, None, None),
             ("precharge_status", "Precharge Status", None, None, None, 0),
             ("charger_status_word", "Charger Status Word", None, None, None, 0),
         ]
@@ -131,8 +138,9 @@ class HAPoller:
                 "payload_available": "online",
                 "payload_not_available": "offline",
                 "device": device,
-                "suggested_display_precision": precision,
             }
+            if precision is not None:
+                payload["suggested_display_precision"] = precision
             if unit:
                 payload["unit_of_measurement"] = unit
             if device_class:

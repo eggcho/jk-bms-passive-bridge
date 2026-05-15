@@ -210,6 +210,10 @@ See [docs/home-assistant.md](docs/home-assistant.md) for:
 - example `jk-bms-card` configuration
 - troubleshooting
 
+For a ready-to-adapt service file, see:
+
+- [docs/systemd.md](docs/systemd.md)
+
 ## Limitations
 
 - Not all JK information appears passively on the bus

@@ -128,6 +128,10 @@ Shorter frames are tracked as partial frames and ignored for state publication.
 
 ## Installation
 
+If you want a beginner-friendly guide with exact commands, start here:
+
+- [docs/beginner-step-by-step.md](docs/beginner-step-by-step.md)
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -209,6 +213,7 @@ See [docs/home-assistant.md](docs/home-assistant.md) for:
 - end-to-end setup
 - example `jk-bms-card` configuration
 - troubleshooting
+- a more detailed HA explanation
 
 For a ready-to-adapt service file, see:
 

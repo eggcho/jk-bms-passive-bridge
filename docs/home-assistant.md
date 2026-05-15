@@ -32,6 +32,11 @@ You need:
 - the bridge running on a machine that can read the JK RS485 adapter
 - a `config/config.yaml` file for this project
 
+If you want a full beginner walkthrough from the USB adapter to the Home
+Assistant card, read:
+
+- [docs/beginner-step-by-step.md](beginner-step-by-step.md)
+
 ## Bridge configuration
 
 Start from:

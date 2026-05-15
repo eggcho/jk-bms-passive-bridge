@@ -215,6 +215,10 @@ See [docs/home-assistant.md](docs/home-assistant.md) for:
 - troubleshooting
 - a more detailed HA explanation
 
+For Grafana / VictoriaMetrics users, see:
+
+- [docs/grafana.md](docs/grafana.md)
+
 For a ready-to-adapt service file, see:
 
 - [docs/systemd.md](docs/systemd.md)

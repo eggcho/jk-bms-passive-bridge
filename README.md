@@ -181,8 +181,15 @@ jk-bms-mqtt-cleanup --config config/config.yaml
 
 ## Home Assistant
 
-The poller publishes discovery entities with prefixes you define in
-`config/config.yaml`.
+The poller publishes Home Assistant MQTT discovery automatically.
+
+High level flow:
+
+1. configure MQTT in `config/config.yaml`
+2. run `jk-bms-ha-poller`
+3. wait for valid RS485 frames
+4. Home Assistant creates the entities through MQTT discovery
+5. point `jk-bms-card` at the configured pack prefix
 
 Example prefix:
 
@@ -197,7 +204,11 @@ Example entities:
 - `switch.jk_bms_pack_1_charging`
 - `binary_sensor.jk_bms_pack_1_balancing`
 
-See [docs/home-assistant.md](docs/home-assistant.md).
+See [docs/home-assistant.md](docs/home-assistant.md) for:
+
+- end-to-end setup
+- example `jk-bms-card` configuration
+- troubleshooting
 
 ## Limitations
 

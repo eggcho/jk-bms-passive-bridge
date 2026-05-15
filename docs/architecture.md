@@ -22,6 +22,8 @@ On the tested setup:
    - `0x01` as config/settings
    - `0x02` as realtime/status
 
+See [protocol-notes.md](protocol-notes.md) for concrete passive dump examples.
+
 ## State publication model
 
 - `0x01` updates pack configuration state

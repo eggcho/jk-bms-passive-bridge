@@ -2,6 +2,27 @@
 
 Passive multi-pack JK BMS RS485 bridge for Home Assistant.
 
+## Problem solved
+
+This project solves one very specific problem:
+
+**reading multiple JK BMS packs from one RS485 bus without becoming another bus master.**
+
+This matters in real installations where:
+
+- one JK pack already acts as the master on UART2 / RS485
+- one or more slave packs answer on the same bus
+- a Deye inverter or another external device is already connected
+- Home Assistant should receive the same data without sending active queries
+
+Most JK integrations assume they can poll one BMS directly. That is often not
+the right model for a shared bus with multiple packs. This bridge takes the
+opposite approach:
+
+- do not poll the production bus
+- do not compete with the existing master
+- only decode what is already present on the wire
+
 This project listens to the JK UART2 / RS485 traffic without sending active
 queries on the bus. It is meant for installations where a master device
 already owns the bus, for example:
@@ -24,6 +45,62 @@ Many JK BMS integrations assume they can poll the device directly. That is not
 always safe on a shared bus where another master is already active. This bridge
 focuses on the passive case: read what is already on the wire and do not inject
 queries into the production bus.
+
+## What can be observed on the bus
+
+On the tested setup, the useful passive traffic is made of two JK frame types:
+
+- `0x01` = config / settings block
+- `0x02` = realtime / status block
+
+Each JK frame is followed by a short Modbus write-style delimiter. That
+delimiter is the key to pack identification.
+
+Example, master pack realtime frame:
+
+```text
+55 AA EB 90 02 00 ...
+00 10 16 20 00 01 05 9A
+```
+
+Example, master pack config frame:
+
+```text
+55 AA EB 90 01 00 ...
+00 10 16 1E 00 01 64 56
+```
+
+Example, slave pack realtime frame:
+
+```text
+55 AA EB 90 02 00 ...
+02 10 16 20 00 01 04 78
+```
+
+What these examples show:
+
+- `55 AA EB 90` is the JK frame header
+- the JK frame byte after the header identifies the block type:
+  - `01` = config
+  - `02` = realtime
+- the first byte of the short delimiter identifies the source pack:
+  - `00` = master pack
+  - `02` = slave pack with address `0x02`
+- the delimiter register byte distinguishes the JK bulk block:
+  - `1E` -> config block
+  - `20` -> realtime block
+
+On the tested installation, these frames repeat continuously for each pack.
+In a clean 60 second capture, the bridge observed:
+
+- 9 valid `0x01` frames for pack `0x00`
+- 9 valid `0x02` frames for pack `0x00`
+- 9 valid `0x01` frames for pack `0x02`
+- 9 valid `0x02` frames for pack `0x02`
+
+See [docs/protocol-notes.md](docs/protocol-notes.md) for a more detailed
+explanation of what is visible in a passive dump and which fields are carried
+by each frame type.
 
 ## Current scope
 
@@ -128,6 +205,11 @@ See [docs/home-assistant.md](docs/home-assistant.md).
 - Version / about blocks such as `0x1400` are not currently available in passive mode on the tested setup
 - The project is intentionally conservative and avoids active reads on the production bus
 - More JK hardware / firmware variants need field validation
+
+For protocol notes and passive dump examples, see:
+
+- [docs/architecture.md](docs/architecture.md)
+- [docs/protocol-notes.md](docs/protocol-notes.md)
 
 ## Development
 

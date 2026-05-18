@@ -1,0 +1,2369 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "links": [],
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Pack 1 SoC",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 3,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_battery_percent{entity=\"sensor.jk_bms_pack_1_state_of_charge\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 20
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Pack 1 Voltage",
+      "gridPos": {
+        "x": 3,
+        "y": 0,
+        "w": 3,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_total_voltage\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "volt",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Pack 1 Current",
+      "gridPos": {
+        "x": 6,
+        "y": 0,
+        "w": 3,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_current_a{entity=\"sensor.jk_bms_pack_1_current\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "amp",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Pack 1 Power",
+      "gridPos": {
+        "x": 9,
+        "y": 0,
+        "w": 3,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_power_w{entity=\"sensor.jk_bms_pack_1_power\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 5,
+      "type": "stat",
+      "title": "Pack 1 Remaining",
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_unit_ah{entity=\"sensor.jk_bms_pack_1_capacity_remaining\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "amp_hour",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 6,
+      "type": "stat",
+      "title": "Pack 1 Cycle Cap",
+      "gridPos": {
+        "x": 3,
+        "y": 4,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_unit_ah{entity=\"sensor.jk_bms_pack_1_total_charging_cycle_capacity\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "amp_hour",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 7,
+      "type": "stat",
+      "title": "Pack 1 MOS Temp",
+      "gridPos": {
+        "x": 6,
+        "y": 4,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_temperature_celsius{entity=\"sensor.jk_bms_pack_1_power_tube_temperature\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 8,
+      "type": "stat",
+      "title": "Pack 1 Delta V",
+      "gridPos": {
+        "x": 9,
+        "y": 4,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_delta_cell_voltage\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "volt",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 9,
+      "type": "stat",
+      "title": "Pack 1 Charging",
+      "gridPos": {
+        "x": 0,
+        "y": 7,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_switch_state{entity=\"switch.jk_bms_pack_1_charging\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "OFF",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "ON",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 10,
+      "type": "stat",
+      "title": "Pack 1 Discharging",
+      "gridPos": {
+        "x": 3,
+        "y": 7,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_switch_state{entity=\"switch.jk_bms_pack_1_discharging\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "OFF",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "ON",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 11,
+      "type": "stat",
+      "title": "Pack 1 Balancing",
+      "gridPos": {
+        "x": 6,
+        "y": 7,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_binary_sensor_state{entity=\"binary_sensor.jk_bms_pack_1_balancing\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "OFF",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "ON",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 12,
+      "type": "stat",
+      "title": "Pack 1 Balancer",
+      "gridPos": {
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_switch_state{entity=\"switch.jk_bms_pack_1_balancer\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "OFF",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "ON",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 13,
+      "type": "bargauge",
+      "title": "Pack 1 Cell Voltages",
+      "gridPos": {
+        "x": 0,
+        "y": 10,
+        "w": 12,
+        "h": 10
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_1\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "C01"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_2\"}",
+          "refId": "B",
+          "instant": true,
+          "legendFormat": "C02"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_3\"}",
+          "refId": "C",
+          "instant": true,
+          "legendFormat": "C03"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_4\"}",
+          "refId": "D",
+          "instant": true,
+          "legendFormat": "C04"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_5\"}",
+          "refId": "E",
+          "instant": true,
+          "legendFormat": "C05"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_6\"}",
+          "refId": "F",
+          "instant": true,
+          "legendFormat": "C06"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_7\"}",
+          "refId": "G",
+          "instant": true,
+          "legendFormat": "C07"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_8\"}",
+          "refId": "H",
+          "instant": true,
+          "legendFormat": "C08"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_9\"}",
+          "refId": "I",
+          "instant": true,
+          "legendFormat": "C09"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_10\"}",
+          "refId": "J",
+          "instant": true,
+          "legendFormat": "C10"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_11\"}",
+          "refId": "K",
+          "instant": true,
+          "legendFormat": "C11"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_12\"}",
+          "refId": "L",
+          "instant": true,
+          "legendFormat": "C12"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_13\"}",
+          "refId": "M",
+          "instant": true,
+          "legendFormat": "C13"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_14\"}",
+          "refId": "N",
+          "instant": true,
+          "legendFormat": "C14"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_15\"}",
+          "refId": "O",
+          "instant": true,
+          "legendFormat": "C15"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_cell_voltage_16\"}",
+          "refId": "P",
+          "instant": true,
+          "legendFormat": "C16"
+        }
+      ],
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "minVizWidth": 0,
+        "minVizHeight": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "volt",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 3.28
+              },
+              {
+                "color": "red",
+                "value": 3.24
+              }
+            ]
+          },
+          "min": 3.2,
+          "max": 3.4
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 14,
+      "type": "bargauge",
+      "title": "Pack 1 Cell Resistances",
+      "gridPos": {
+        "x": 0,
+        "y": 20,
+        "w": 12,
+        "h": 10
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_1\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "R01"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_2\"}",
+          "refId": "B",
+          "instant": true,
+          "legendFormat": "R02"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_3\"}",
+          "refId": "C",
+          "instant": true,
+          "legendFormat": "R03"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_4\"}",
+          "refId": "D",
+          "instant": true,
+          "legendFormat": "R04"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_5\"}",
+          "refId": "E",
+          "instant": true,
+          "legendFormat": "R05"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_6\"}",
+          "refId": "F",
+          "instant": true,
+          "legendFormat": "R06"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_7\"}",
+          "refId": "G",
+          "instant": true,
+          "legendFormat": "R07"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_8\"}",
+          "refId": "H",
+          "instant": true,
+          "legendFormat": "R08"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_9\"}",
+          "refId": "I",
+          "instant": true,
+          "legendFormat": "R09"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_10\"}",
+          "refId": "J",
+          "instant": true,
+          "legendFormat": "R10"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_11\"}",
+          "refId": "K",
+          "instant": true,
+          "legendFormat": "R11"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_12\"}",
+          "refId": "L",
+          "instant": true,
+          "legendFormat": "R12"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_13\"}",
+          "refId": "M",
+          "instant": true,
+          "legendFormat": "R13"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_14\"}",
+          "refId": "N",
+          "instant": true,
+          "legendFormat": "R14"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_15\"}",
+          "refId": "O",
+          "instant": true,
+          "legendFormat": "R15"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_1_cell_resistance_16\"}",
+          "refId": "P",
+          "instant": true,
+          "legendFormat": "R16"
+        }
+      ],
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "minVizWidth": 0,
+        "minVizHeight": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "min": 0,
+          "max": 200
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 15,
+      "type": "timeseries",
+      "title": "Pack 1 Trend",
+      "gridPos": {
+        "x": 0,
+        "y": 30,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_total_voltage\"}",
+          "refId": "A",
+          "legendFormat": "Voltage"
+        },
+        {
+          "expr": "ha_sensor_current_a{entity=\"sensor.jk_bms_pack_1_current\"}",
+          "refId": "B",
+          "legendFormat": "Current"
+        },
+        {
+          "expr": "ha_sensor_power_w{entity=\"sensor.jk_bms_pack_1_power\"}",
+          "refId": "C",
+          "legendFormat": "Power"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "pointSize": 2,
+            "spanNulls": false,
+            "showPoints": "never",
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisPlacement": "auto",
+            "axisLabel": "",
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Voltage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "volt"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Current"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "amp"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Power"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "watt"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Power"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "type": "stat",
+      "title": "Pack 2 SoC",
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 3,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_battery_percent{entity=\"sensor.jk_bms_pack_2_state_of_charge\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 20
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 17,
+      "type": "stat",
+      "title": "Pack 2 Voltage",
+      "gridPos": {
+        "x": 15,
+        "y": 0,
+        "w": 3,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_total_voltage\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "volt",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 18,
+      "type": "stat",
+      "title": "Pack 2 Current",
+      "gridPos": {
+        "x": 18,
+        "y": 0,
+        "w": 3,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_current_a{entity=\"sensor.jk_bms_pack_2_current\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "amp",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 19,
+      "type": "stat",
+      "title": "Pack 2 Power",
+      "gridPos": {
+        "x": 21,
+        "y": 0,
+        "w": 3,
+        "h": 4
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_power_w{entity=\"sensor.jk_bms_pack_2_power\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 20,
+      "type": "stat",
+      "title": "Pack 2 Remaining",
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_unit_ah{entity=\"sensor.jk_bms_pack_2_capacity_remaining\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "amp_hour",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 21,
+      "type": "stat",
+      "title": "Pack 2 Cycle Cap",
+      "gridPos": {
+        "x": 15,
+        "y": 4,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_unit_ah{entity=\"sensor.jk_bms_pack_2_total_charging_cycle_capacity\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "amp_hour",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 22,
+      "type": "stat",
+      "title": "Pack 2 MOS Temp",
+      "gridPos": {
+        "x": 18,
+        "y": 4,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_temperature_celsius{entity=\"sensor.jk_bms_pack_2_power_tube_temperature\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 23,
+      "type": "stat",
+      "title": "Pack 2 Delta V",
+      "gridPos": {
+        "x": 21,
+        "y": 4,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_delta_cell_voltage\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "volt",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 24,
+      "type": "stat",
+      "title": "Pack 2 Charging",
+      "gridPos": {
+        "x": 12,
+        "y": 7,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_switch_state{entity=\"switch.jk_bms_pack_2_charging\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "OFF",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "ON",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 25,
+      "type": "stat",
+      "title": "Pack 2 Discharging",
+      "gridPos": {
+        "x": 15,
+        "y": 7,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_switch_state{entity=\"switch.jk_bms_pack_2_discharging\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "OFF",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "ON",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 26,
+      "type": "stat",
+      "title": "Pack 2 Balancing",
+      "gridPos": {
+        "x": 18,
+        "y": 7,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_binary_sensor_state{entity=\"binary_sensor.jk_bms_pack_2_balancing\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "OFF",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "ON",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 27,
+      "type": "stat",
+      "title": "Pack 2 Balancer",
+      "gridPos": {
+        "x": 21,
+        "y": 7,
+        "w": 3,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_switch_state{entity=\"switch.jk_bms_pack_2_balancer\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "textMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "showPercentChange": false
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "OFF",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "ON",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 28,
+      "type": "bargauge",
+      "title": "Pack 2 Cell Voltages",
+      "gridPos": {
+        "x": 12,
+        "y": 10,
+        "w": 12,
+        "h": 10
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_1\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "C01"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_2\"}",
+          "refId": "B",
+          "instant": true,
+          "legendFormat": "C02"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_3\"}",
+          "refId": "C",
+          "instant": true,
+          "legendFormat": "C03"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_4\"}",
+          "refId": "D",
+          "instant": true,
+          "legendFormat": "C04"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_5\"}",
+          "refId": "E",
+          "instant": true,
+          "legendFormat": "C05"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_6\"}",
+          "refId": "F",
+          "instant": true,
+          "legendFormat": "C06"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_7\"}",
+          "refId": "G",
+          "instant": true,
+          "legendFormat": "C07"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_8\"}",
+          "refId": "H",
+          "instant": true,
+          "legendFormat": "C08"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_9\"}",
+          "refId": "I",
+          "instant": true,
+          "legendFormat": "C09"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_10\"}",
+          "refId": "J",
+          "instant": true,
+          "legendFormat": "C10"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_11\"}",
+          "refId": "K",
+          "instant": true,
+          "legendFormat": "C11"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_12\"}",
+          "refId": "L",
+          "instant": true,
+          "legendFormat": "C12"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_13\"}",
+          "refId": "M",
+          "instant": true,
+          "legendFormat": "C13"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_14\"}",
+          "refId": "N",
+          "instant": true,
+          "legendFormat": "C14"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_15\"}",
+          "refId": "O",
+          "instant": true,
+          "legendFormat": "C15"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_cell_voltage_16\"}",
+          "refId": "P",
+          "instant": true,
+          "legendFormat": "C16"
+        }
+      ],
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "minVizWidth": 0,
+        "minVizHeight": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "volt",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 3.28
+              },
+              {
+                "color": "red",
+                "value": 3.24
+              }
+            ]
+          },
+          "min": 3.2,
+          "max": 3.4
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 29,
+      "type": "bargauge",
+      "title": "Pack 2 Cell Resistances",
+      "gridPos": {
+        "x": 12,
+        "y": 20,
+        "w": 12,
+        "h": 10
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_1\"}",
+          "refId": "A",
+          "instant": true,
+          "legendFormat": "R01"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_2\"}",
+          "refId": "B",
+          "instant": true,
+          "legendFormat": "R02"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_3\"}",
+          "refId": "C",
+          "instant": true,
+          "legendFormat": "R03"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_4\"}",
+          "refId": "D",
+          "instant": true,
+          "legendFormat": "R04"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_5\"}",
+          "refId": "E",
+          "instant": true,
+          "legendFormat": "R05"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_6\"}",
+          "refId": "F",
+          "instant": true,
+          "legendFormat": "R06"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_7\"}",
+          "refId": "G",
+          "instant": true,
+          "legendFormat": "R07"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_8\"}",
+          "refId": "H",
+          "instant": true,
+          "legendFormat": "R08"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_9\"}",
+          "refId": "I",
+          "instant": true,
+          "legendFormat": "R09"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_10\"}",
+          "refId": "J",
+          "instant": true,
+          "legendFormat": "R10"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_11\"}",
+          "refId": "K",
+          "instant": true,
+          "legendFormat": "R11"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_12\"}",
+          "refId": "L",
+          "instant": true,
+          "legendFormat": "R12"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_13\"}",
+          "refId": "M",
+          "instant": true,
+          "legendFormat": "R13"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_14\"}",
+          "refId": "N",
+          "instant": true,
+          "legendFormat": "R14"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_15\"}",
+          "refId": "O",
+          "instant": true,
+          "legendFormat": "R15"
+        },
+        {
+          "expr": "ha_sensor_unit_mu0x3c9{entity=\"sensor.jk_bms_pack_2_cell_resistance_16\"}",
+          "refId": "P",
+          "instant": true,
+          "legendFormat": "R16"
+        }
+      ],
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "minVizWidth": 0,
+        "minVizHeight": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "min": 0,
+          "max": 200
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 30,
+      "type": "timeseries",
+      "title": "Pack 2 Trend",
+      "gridPos": {
+        "x": 12,
+        "y": 30,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_total_voltage\"}",
+          "refId": "A",
+          "legendFormat": "Voltage"
+        },
+        {
+          "expr": "ha_sensor_current_a{entity=\"sensor.jk_bms_pack_2_current\"}",
+          "refId": "B",
+          "legendFormat": "Current"
+        },
+        {
+          "expr": "ha_sensor_power_w{entity=\"sensor.jk_bms_pack_2_power\"}",
+          "refId": "C",
+          "legendFormat": "Power"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "pointSize": 2,
+            "spanNulls": false,
+            "showPoints": "never",
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisPlacement": "auto",
+            "axisLabel": "",
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Voltage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "volt"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Current"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "amp"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Power"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "watt"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Power"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 31,
+      "type": "timeseries",
+      "title": "Pack Voltages Compare",
+      "gridPos": {
+        "x": 0,
+        "y": 38,
+        "w": 24,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "targets": [
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_1_total_voltage\"}",
+          "refId": "A",
+          "legendFormat": "Pack 1"
+        },
+        {
+          "expr": "ha_sensor_voltage_v{entity=\"sensor.jk_bms_pack_2_total_voltage\"}",
+          "refId": "B",
+          "legendFormat": "Pack 2"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "volt",
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "pointSize": 2,
+            "spanNulls": false,
+            "showPoints": "never",
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisPlacement": "auto",
+            "axisLabel": "",
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      }
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": [
+    "jk-bms",
+    "home-assistant",
+    "victoriametrics",
+    "grafana"
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "DS_PROMETHEUS",
+        "label": "Datasource",
+        "type": "datasource",
+        "query": "prometheus",
+        "refresh": 1,
+        "current": {
+          "selected": true,
+          "text": "VictoriaMetrics",
+          "value": "VictoriaMetrics"
+        }
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "JK BMS Packs via Home Assistant Prometheus",
+  "uid": "jkbms-ha-packs",
+  "version": 1,
+  "weekStart": ""
+}

@@ -218,6 +218,7 @@ See [docs/home-assistant.md](docs/home-assistant.md) for:
 For Grafana / VictoriaMetrics users, see:
 
 - [docs/grafana.md](docs/grafana.md)
+- [docs/grafana-dashboard-plain.json](docs/grafana-dashboard-plain.json)
 
 For a ready-to-adapt service file, see:
 

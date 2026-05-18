@@ -205,27 +205,133 @@ Actively probe the about/version block:
 jk-bms-active-probe --pack 0x02 --query about --hex
 ```
 
-Example parsed result from a real system, with sensitive values masked:
+## Examples
 
-```json
+Real `jk-bms-active-probe` output from a working system, with sensitive values
+masked.
+
+### Example: realtime block
+
+```text
+(venv) iot@host:~/jk-bms-passive-bridge$ jk-bms-active-probe --pack 0x02 --query realtime --hex
 {
+  "baud": 115200,
   "pack_addr": "0x02",
-  "query": "about",
-  "response_len": 319,
-  "response_type": "0x03",
   "parsed": {
-    "manufacturer_device_id": "JK-PB2A16S20P",
-    "hardware_version": "19A",
-    "software_version": "19.31",
-    "serial_number": "51**********3560",
+    "alarm_bitmap": 0,
+    "avg_cell_mv": 3303,
+    "balancing_current_a": 0.0,
+    "balancing_state": 0,
+    "battery_voltage_0p01v": 16446,
+    "capacity_remaining_ah": 190.059,
+    "capacity_total_ah": 320.0,
+    "cell_status_bitmap": 65535,
+    "cells_mv": [
+      3304,
+      3302,
+      3303,
+      3303,
+      3303,
+      3302,
+      3302,
+      3303,
+      3302,
+      3304,
+      3304,
+      3304,
+      3302,
+      3303,
+      3302,
+      3302
+    ],
+    "charger_status_word": 256,
+    "charging_cycles": 1,
+    "charging_status": true,
+    "current_a": -9.241,
+    "delta_cell_mv": 2,
+    "discharging_status": true,
+    "heating_current_ma": 0,
+    "max_cell_num": 1,
+    "min_cell_num": 2,
+    "mos_temp_c": 17.0,
+    "pcl_status_word": 0,
+    "power_w": 488.371,
+    "precharge_status": 0,
+    "resistances_mohm": [
+      67,
+      64,
+      69,
+      67,
+      71,
+      70,
+      66,
+      64,
+      68,
+      66,
+      66,
+      65,
+      71,
+      70,
+      68,
+      67
+    ],
+    "rtc_ticks": 10616997,
+    "runtime_sec": 919017,
+    "sensor_presence_word": 255,
+    "sleep_time_sec": 7605247,
+    "state_of_charge": 59,
+    "state_of_health": 100,
+    "system_beat_0p1s": 100663553,
+    "temp1_c": 16.4,
+    "temp2_c": 16.5,
+    "temp3_c": 7.3,
+    "temp4_c": 0.0,
+    "temp5_c": 0.0,
+    "time_cocpr_s": 0,
+    "time_cscpr_s": 0,
+    "time_dcocpr_s": 0,
+    "time_dcscpr_s": 0,
+    "total_charging_cycle_capacity_ah": 402.096,
+    "total_voltage_v": 52.848,
+    "user_alarm_1": 0,
+    "user_alarm_2": 0
+  },
+  "port": "/dev/ttyUSB0",
+  "query": "realtime",
+  "request_hex": "02 10 16 20 00 01 02 00 00 c2 01",
+  "response_hex": "55 aa eb 90 02 00 ... 02 10 16 20 00 01 04 78 04 10 16 20 00 01 02 00 00 e9 a1",
+  "response_len": 319,
+  "response_type": "0x02"
+}
+```
+
+### Example: about/version block
+
+```text
+(venv) iot@host:~/jk-bms-passive-bridge$ jk-bms-active-probe --pack 0x02 --query about --hex
+{
+  "baud": 115200,
+  "pack_addr": "0x02",
+  "parsed": {
     "bluetooth_name": "Battery 2",
     "bluetooth_pin": "1****4",
     "first_on_date": "260507",
-    "power_on_times": 9,
+    "hardware_version": "19A",
+    "manufacturer_device_id": "JK-PB2A16S20P",
+    "odd_runtime_sec": 918900,
     "password": "ka***n2",
-    "user_private_data": "JK-BMS",
-    "user_data_2": "JK-BMS"
-  }
+    "power_on_times": 9,
+    "serial_number": "51**********3560",
+    "software_version": "19.31",
+    "user_data_2": "JK-BMS",
+    "user_private_data": "JK-BMS"
+  },
+  "port": "/dev/ttyUSB0",
+  "query": "about",
+  "request_hex": "02 10 16 1c 00 01 02 00 00 c7 3d",
+  "response_hex": "55 aa eb 90 03 00 4a 4b 2d 50 42 32 41 31 36 53 32 30 50 ... 02 20 02 10 16 1c 00 01 c4 74 0d 10 16 20 00 01 02 00 00 83 f1",
+  "response_len": 319,
+  "response_type": "0x03"
 }
 ```
 

@@ -1,12 +1,12 @@
-# JK BMS Passive Bridge
+# JK BMS Hybrid Bridge
 
-Passive multi-pack JK BMS RS485 bridge for Home Assistant.
+Hybrid multi-pack JK BMS RS485 bridge for Home Assistant.
 
 ## Problem solved
 
 This project solves one very specific problem:
 
-**reading multiple JK BMS packs from one RS485 bus without becoming another bus master.**
+**reading multiple JK BMS packs over RS485 for Home Assistant, with passive realtime decoding and optional active metadata reads.**
 
 This matters in real installations where:
 

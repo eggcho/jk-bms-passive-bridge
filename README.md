@@ -205,6 +205,34 @@ Actively probe the about/version block:
 jk-bms-active-probe --pack 0x02 --query about --hex
 ```
 
+Example parsed result from a real system, with sensitive values masked:
+
+```json
+{
+  "pack_addr": "0x02",
+  "query": "about",
+  "response_len": 319,
+  "response_type": "0x03",
+  "parsed": {
+    "manufacturer_device_id": "JK-PB2A16S20P",
+    "hardware_version": "19A",
+    "software_version": "19.31",
+    "serial_number": "51**********3560",
+    "bluetooth_name": "Battery 2",
+    "bluetooth_pin": "1****4",
+    "first_on_date": "260507",
+    "power_on_times": 9,
+    "password": "ka***n2",
+    "user_private_data": "JK-BMS",
+    "user_data_2": "JK-BMS"
+  }
+}
+```
+
+The Home Assistant poller does not publish the raw Bluetooth PIN or password.
+It only publishes masked values. The active probe tool is the place for manual
+inspection when you explicitly need the full raw response.
+
 ## Home Assistant
 
 The poller publishes Home Assistant MQTT discovery automatically.

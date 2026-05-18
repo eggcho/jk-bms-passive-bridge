@@ -210,6 +210,53 @@ The captures used for this project did not show:
 For the tested bus, those data blocks should be treated as not passively
 available until proven otherwise.
 
+## Active `0x03` / `0x1400` about query
+
+Although `0x03` was not seen passively in the captured traffic, it can be
+queried actively on installations where a dedicated JK RS485 port is available.
+
+The request is a Modbus `0x10` write frame which triggers a bulk reply:
+
+```text
+02 10 16 1C 00 01 02 00 00 C7 3D
+```
+
+Observed response header:
+
+```text
+55 AA EB 90 03 00 ...
+```
+
+Example parsed result from a real pack, with sensitive values masked:
+
+```json
+{
+  "manufacturer_device_id": "JK-PB2A16S20P",
+  "hardware_version": "19A",
+  "software_version": "19.31",
+  "serial_number": "51**********3560",
+  "bluetooth_name": "Battery 2",
+  "bluetooth_pin": "1****4",
+  "first_on_date": "260507",
+  "power_on_times": 9,
+  "password": "ka***n2",
+  "user_private_data": "JK-BMS",
+  "user_data_2": "JK-BMS"
+}
+```
+
+This is the source for fields such as:
+
+- hardware version
+- software version
+- serial number
+- Bluetooth name
+- first-on date
+- power-on count
+
+In this project, the bridge may use this query infrequently to enrich Home
+Assistant metadata, while sensitive values are published only in masked form.
+
 ## Why the bridge prefers full 300-byte frames
 
 The project has also seen shorter frames such as:

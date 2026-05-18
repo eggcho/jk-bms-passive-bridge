@@ -55,6 +55,8 @@ Important settings:
 - `mqtt.state_root`
 - `packs[].address`
 - `packs[].prefix`
+- `active_about.enabled`
+- `active_about.refresh_seconds`
 
 Example:
 
@@ -78,9 +80,34 @@ packs:
   - address: 0x02
     name: JK BMS Pack 2
     prefix: jk_bms_pack_2
+
+active_about:
+  enabled: true
+  refresh_seconds: 86400
+  timeout_seconds: 2.0
+  idle_timeout_seconds: 0.15
 ```
 
 The most important HA-facing value is the `prefix`.
+
+## About/version enrichment
+
+By default the bridge also performs a rare active `0x1400` query to collect:
+
+- hardware version
+- software version
+- serial number
+- bluetooth name
+- first-on date
+- power-on count
+
+This query is intended for RS485 ports where active requests are acceptable.
+Realtime and config data still come from the passive listener path.
+
+Sensitive values are masked before publishing to MQTT / Home Assistant:
+
+- Bluetooth PIN
+- password
 
 ## Running the bridge
 

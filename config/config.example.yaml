@@ -13,6 +13,12 @@ mqtt:
 defaults:
   cells: 16
 
+active_about:
+  enabled: true
+  refresh_seconds: 86400
+  timeout_seconds: 2.0
+  idle_timeout_seconds: 0.15
+
 packs:
   - address: 0x00
     name: JK BMS Pack 1

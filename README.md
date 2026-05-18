@@ -31,6 +31,19 @@ already owns the bus, for example:
 - Deye inverter connected to the battery bus
 - Home Assistant consuming the same data passively through MQTT
 
+In addition to passive realtime/config decoding, the bridge can optionally send
+an infrequent active `0x1400` about/version query to enrich the data with:
+
+- hardware version
+- software version
+- serial number
+- bluetooth name
+- first-on date
+
+Sensitive values such as the Bluetooth PIN and password are published only in a
+masked form. The raw values are available only through the dedicated probe
+tool.
+
 ## What it does
 
 - Passively decodes JK `0x01` and `0x02` frames from the bus
@@ -115,6 +128,9 @@ Tested on a real setup with:
 The parser currently relies on full `300-byte` frames for stable state updates.
 Shorter frames are tracked as partial frames and ignored for state publication.
 
+The optional active `about` query is intended for installations where this
+serial adapter is connected to a JK RS485 port that is safe to query directly.
+
 ## Repository layout
 
 - `src/jk_bms_passive_bridge/`
@@ -181,6 +197,12 @@ Clear retained MQTT topics from older runs:
 
 ```bash
 jk-bms-mqtt-cleanup --config config/config.yaml
+```
+
+Actively probe the about/version block:
+
+```bash
+jk-bms-active-probe --pack 0x02 --query about --hex
 ```
 
 ## Home Assistant

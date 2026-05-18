@@ -10,7 +10,7 @@ import serial
 from loguru import logger
 
 from .config import AppConfig, PackConfig, load_config
-from .protocol import build_card_state, find_frame_and_delimiter, parse_type_01, parse_type_02
+from .protocol import build_active_query, build_card_state, find_frame_and_delimiter, parse_type_01, parse_type_02, parse_type_03
 
 
 @dataclass
@@ -18,8 +18,10 @@ class PackState:
     config: PackConfig
     type01: dict | None = None
     type02: dict | None = None
+    type03: dict | None = None
     discovery_sent: bool = False
     last_publish_ts: float = 0.0
+    last_about_probe_ts: float = 0.0
 
 
 class HAPoller:
@@ -64,6 +66,63 @@ class HAPoller:
         else:
             logger.error(f"MQTT rc={rc}")
 
+    def active_read_frame(self, expected_type: int, timeout: float, idle_timeout: float) -> bytes | None:
+        deadline = time.time() + timeout
+        buf = bytearray()
+        header_pos = -1
+        last_rx = 0.0
+        while time.time() < deadline:
+            chunk = self.ser.read(self.ser.in_waiting or 1)
+            if chunk:
+                buf.extend(chunk)
+                last_rx = time.time()
+                if header_pos < 0:
+                    header_pos = buf.find(b"\x55\xAA\xEB\x90")
+            else:
+                time.sleep(0.01)
+            if header_pos >= 0 and last_rx and (time.time() - last_rx) > idle_timeout:
+                frame = bytes(buf[header_pos:])
+                if len(frame) >= 6 and frame[4] == expected_type:
+                    return frame
+                header_pos = -1
+                idx = buf.find(b"\x55\xAA\xEB\x90", 1)
+                if idx >= 0:
+                    del buf[:idx]
+                    header_pos = 0
+        return None
+
+    def refresh_pack_about(self, pack: PackState, force: bool = False):
+        if not self.config.active_about_enabled:
+            return
+        now = time.time()
+        if not force and pack.last_about_probe_ts and (now - pack.last_about_probe_ts) < self.config.active_about_refresh_seconds:
+            return
+        if self.buffer or self.ser.in_waiting:
+            return
+        query = build_active_query(pack.config.address, 0x1C)
+        self.ser.reset_input_buffer()
+        self.ser.write(query)
+        self.ser.flush()
+        frame = self.active_read_frame(
+            expected_type=0x03,
+            timeout=self.config.active_about_timeout_seconds,
+            idle_timeout=self.config.active_about_idle_timeout_seconds,
+        )
+        pack.last_about_probe_ts = now
+        if not frame:
+            logger.warning(f"About probe timeout for {pack.config.name} (0x{pack.config.address:02X})")
+            return
+        parsed = parse_type_03(frame)
+        changed = parsed != pack.type03
+        pack.type03 = parsed
+        logger.info(
+            f"About probe ok for {pack.config.name}: hw={parsed.get('hardware_version','?')} sw={parsed.get('software_version','?')} serial={parsed.get('serial_number','?')}"
+        )
+        if changed:
+            pack.discovery_sent = False
+            if pack.type02:
+                self.publish_state(pack)
+
     def _state_topic(self, pack: PackState) -> str:
         return f"{self.config.mqtt.state_root}/{pack.config.prefix}/state"
 
@@ -73,7 +132,7 @@ class HAPoller:
     def publish_discovery(self, pack: PackState):
         if pack.discovery_sent:
             return
-        state = build_state(pack.type01, pack.type02) if (pack.type01 or pack.type02) else {}
+        state = build_card_state(pack.type01, pack.type02, pack.type03, num_cells=pack.config.cells) if (pack.type01 or pack.type02 or pack.type03) else {}
         device = {
             "identifiers": [pack.config.prefix],
             "name": pack.config.name,
@@ -82,6 +141,8 @@ class HAPoller:
             "serial_number": pack.config.prefix,
             "configuration_url": "https://github.com/eggcho/jk-bms-passive-bridge",
         }
+        if state.get("serial_number") and state["serial_number"] != "unknown":
+            device["serial_number"] = state["serial_number"]
         if state.get("hardware_version") and state["hardware_version"] != "unknown":
             device["hw_version"] = state["hardware_version"]
         if state.get("software_version") and state["software_version"] != "unknown":
@@ -111,8 +172,15 @@ class HAPoller:
             ("min_cell_voltage", "Min Cell Voltage", "V", "voltage", "measurement", 3),
             ("max_cell_voltage", "Max Cell Voltage", "V", "voltage", "measurement", 3),
             ("errors", "Errors", None, None, None, None),
+            ("manufacturer_device_id", "Manufacturer Device ID", None, None, None, None),
             ("software_version", "Software Version", None, None, None, None),
             ("hardware_version", "Hardware Version", None, None, None, None),
+            ("serial_number", "Serial Number", None, None, None, None),
+            ("bluetooth_name", "Bluetooth Name", None, None, None, None),
+            ("bluetooth_pin_masked", "Bluetooth PIN", None, None, None, None),
+            ("password_masked", "Password", None, None, None, None),
+            ("first_on_date", "First On Date", None, None, None, None),
+            ("power_on_times", "Power On Times", None, None, "total_increasing", 0),
             ("temperature_sensor_1", "Temperature Sensor 1", "°C", "temperature", "measurement", 1),
             ("temperature_sensor_2", "Temperature Sensor 2", "°C", "temperature", "measurement", 1),
             ("temperature_sensor_3", "Temperature Sensor 3", "°C", "temperature", "measurement", 1),
@@ -204,7 +272,7 @@ class HAPoller:
     def publish_state(self, pack: PackState):
         if not pack.type02:
             return
-        state = build_card_state(pack.type01, pack.type02, num_cells=pack.config.cells)
+        state = build_card_state(pack.type01, pack.type02, pack.type03, num_cells=pack.config.cells)
         self.publish_discovery(pack)
         self.mqtt.publish(self._state_topic(pack), json.dumps(state), retain=True, qos=0)
         pack.last_publish_ts = time.time()
@@ -244,6 +312,8 @@ class HAPoller:
     def run(self):
         self.setup()
         time.sleep(1)
+        for pack in self.packs.values():
+            self.refresh_pack_about(pack, force=True)
         logger.info("Passive JK BMS -> Home Assistant poller started")
         try:
             while True:
@@ -252,6 +322,9 @@ class HAPoller:
                 if len(self.buffer) > 40000:
                     self.buffer = self.buffer[-20000:]
                 self.process_buffer()
+                if not self.buffer and not self.ser.in_waiting:
+                    for pack in self.packs.values():
+                        self.refresh_pack_about(pack)
                 if time.time() - self.last_stats_log > 60:
                     logger.info(f"Stats: {self.stats}")
                     self.last_stats_log = time.time()

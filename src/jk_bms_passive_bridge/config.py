@@ -32,6 +32,10 @@ class AppConfig:
     mqtt: MqttConfig
     packs: dict[int, PackConfig]
     default_cells: int = 16
+    active_about_enabled: bool = True
+    active_about_refresh_seconds: int = 86400
+    active_about_timeout_seconds: float = 2.0
+    active_about_idle_timeout_seconds: float = 0.15
 
 
 def _parse_int(value: Any) -> int:
@@ -77,4 +81,8 @@ def load_config(path: str | Path) -> AppConfig:
         mqtt=mqtt,
         packs=packs,
         default_cells=default_cells,
+        active_about_enabled=bool(raw.get("active_about", {}).get("enabled", True)),
+        active_about_refresh_seconds=int(raw.get("active_about", {}).get("refresh_seconds", 86400)),
+        active_about_timeout_seconds=float(raw.get("active_about", {}).get("timeout_seconds", 2.0)),
+        active_about_idle_timeout_seconds=float(raw.get("active_about", {}).get("idle_timeout_seconds", 0.15)),
     )

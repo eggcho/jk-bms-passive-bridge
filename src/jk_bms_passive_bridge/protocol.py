@@ -158,6 +158,54 @@ def parse_type_01(frame: bytes) -> dict[str, Any]:
     }
 
 
+def build_active_query(pack_addr: int, reg: int) -> bytes:
+    payload = bytes(
+        [
+            pack_addr & 0xFF,
+            0x10,
+            0x16,
+            reg & 0xFF,
+            0x00,
+            0x01,
+            0x02,
+            0x00,
+            0x00,
+        ]
+    )
+    return payload + struct.pack("<H", crc16_modbus(payload))
+
+
+def parse_ascii(frame: bytes, offset: int, length: int) -> str:
+    raw = frame[offset : offset + length]
+    raw = raw.split(b"\x00", 1)[0].strip()
+    return raw.decode("ascii", errors="replace").strip()
+
+
+def parse_type_03(frame: bytes) -> dict[str, Any]:
+    return {
+        "manufacturer_device_id": parse_ascii(frame, 6, 16),
+        "hardware_version": parse_ascii(frame, 22, 8),
+        "software_version": parse_ascii(frame, 30, 8),
+        "odd_runtime_sec": struct.unpack_from("<I", frame, 38)[0] if len(frame) >= 42 else 0,
+        "power_on_times": struct.unpack_from("<I", frame, 42)[0] if len(frame) >= 46 else 0,
+        "bluetooth_name": parse_ascii(frame, 46, 16),
+        "bluetooth_pin": parse_ascii(frame, 62, 16),
+        "first_on_date": parse_ascii(frame, 78, 8),
+        "serial_number": parse_ascii(frame, 86, 16),
+        "user_private_data": parse_ascii(frame, 102, 16),
+        "password": parse_ascii(frame, 118, 16),
+        "user_data_2": parse_ascii(frame, 134, 16),
+    }
+
+
+def mask_middle(value: str, head: int, tail: int, stars: int) -> str:
+    if not value:
+        return ""
+    if len(value) <= head + tail:
+        return "*" * stars
+    return f"{value[:head]}{'*' * stars}{value[-tail:]}"
+
+
 def format_runtime(seconds: int) -> str:
     days, rem = divmod(int(seconds), 86400)
     hours, rem = divmod(rem, 3600)
@@ -172,7 +220,12 @@ def decode_errors(alarm_bitmap: int) -> str:
     return ", ".join(errors) if errors else f"0x{alarm_bitmap:08X}"
 
 
-def build_card_state(type01: dict[str, Any] | None, type02: dict[str, Any] | None, num_cells: int = 16) -> dict[str, Any]:
+def build_card_state(
+    type01: dict[str, Any] | None,
+    type02: dict[str, Any] | None,
+    type03: dict[str, Any] | None,
+    num_cells: int = 16,
+) -> dict[str, Any]:
     state: dict[str, Any] = {}
     if type02:
         cells = type02["cells_mv"][:num_cells]
@@ -231,8 +284,29 @@ def build_card_state(type01: dict[str, Any] | None, type02: dict[str, Any] | Non
                 "total_battery_capacity_setting": round(type01["total_battery_capacity_setting"], 3),
             }
         )
+    if type03:
+        state.update(
+            {
+                "manufacturer_device_id": type03.get("manufacturer_device_id", "") or "unknown",
+                "hardware_version": type03.get("hardware_version", "") or "unknown",
+                "software_version": type03.get("software_version", "") or "unknown",
+                "serial_number": type03.get("serial_number", "") or "unknown",
+                "bluetooth_name": type03.get("bluetooth_name", "") or "unknown",
+                "bluetooth_pin_masked": mask_middle(type03.get("bluetooth_pin", ""), 1, 1, 4) or "unknown",
+                "password_masked": mask_middle(type03.get("password", ""), 2, 2, 3) or "unknown",
+                "first_on_date": type03.get("first_on_date", "") or "unknown",
+                "power_on_times": int(type03.get("power_on_times", 0)),
+            }
+        )
+    state.setdefault("manufacturer_device_id", "unknown")
     state.setdefault("hardware_version", "unknown")
     state.setdefault("software_version", "unknown")
+    state.setdefault("serial_number", "unknown")
+    state.setdefault("bluetooth_name", "unknown")
+    state.setdefault("bluetooth_pin_masked", "unknown")
+    state.setdefault("password_masked", "unknown")
+    state.setdefault("first_on_date", "unknown")
+    state.setdefault("power_on_times", 0)
     state.setdefault("charging", "OFF")
     state.setdefault("discharging", "OFF")
     state.setdefault("balancer", "OFF")

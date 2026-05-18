@@ -41,6 +41,7 @@ jk-bms-live-monitor = "jk_bms_passive_bridge.live_monitor:main"
 jk-bms-passive-capture = "jk_bms_passive_bridge.capture_tool:main"
 jk-bms-frame-analyzer = "jk_bms_passive_bridge.frame_analyzer:main"
 jk-bms-mqtt-cleanup = "jk_bms_passive_bridge.mqtt_cleanup:main"
+jk-bms-active-probe = "jk_bms_passive_bridge.active_probe:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

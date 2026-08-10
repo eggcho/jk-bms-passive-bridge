@@ -319,7 +319,7 @@ masked.
     "hardware_version": "19A",
     "manufacturer_device_id": "JK-PB2A16S20P",
     "odd_runtime_sec": 918900,
-    "password": "ka***n2",
+    "password": "sa***n2",
     "power_on_times": 9,
     "serial_number": "51**********3560",
     "software_version": "19.31",
